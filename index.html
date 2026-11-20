@@ -1,162 +1,329 @@
 <!DOCTYPE html>
-<!-- oss-template-2026:placeholder （この目印で，scripts/check.sh が「準備中」のページかどうかを見分けます） -->
-<!--
-  テンプレートの「準備中」のページです．
-  このページが https://ユーザー名.github.io/ に表示されたら，GitHub Pages の設定は成功です．
-  第7回の実習4で，このファイルを第6回で作った index.html に置きかえます．
--->
 <html lang="ja">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>準備中</title>
-  <style>
-    /* ===== 色の設定 ===== */
-    :root {
-      --main-color: #2e7d32;  /* メインの色（見出し・番号） */
-      --bg-color: #f5f8f5;    /* ページの背景の色 */
-      --card-color: #ffffff;  /* カードの背景の色 */
-      --text-color: #222222;  /* 文字の色 */
-      --sub-color: #666666;   /* 補足の文字の色 */
-      --line-color: #dfe6df;  /* 区切り線の色 */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAKAEのステータス</title>
 
-    /* パソコンやスマートフォンがダークモードのときの色 */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --main-color: #81c784;
-        --bg-color: #121512;
-        --card-color: #1e231e;
-        --text-color: #e8ece8;
-        --sub-color: #a0a8a0;
-        --line-color: #2f362f;
-      }
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    /* ページ全体：カードを画面のまんなかに置く */
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      box-sizing: border-box;
-      font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
-      line-height: 1.8;
-      color: var(--text-color);
-      background: var(--bg-color);
-    }
+        body {
+            margin: 0;
+            background: #10111d;
+            color: #f5f5f5;
+            font-family: "Courier New", "Hiragino Kaku Gothic ProN",
+                monospace;
+            line-height: 1.8;
+        }
 
-    /* まんなかのカード */
-    main {
-      width: 100%;
-      max-width: 600px;
-      padding: 32px 28px;
-      background: var(--card-color);
-      border-top: 6px solid var(--main-color);
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    }
+        header {
+            text-align: center;
+            padding: 60px 20px 35px;
+            background: #191a30;
+            border-bottom: 4px double #e6bd63;
+        }
 
-    h1 {
-      margin: 0 0 4px;
-      font-size: clamp(1.3rem, 6vw, 1.6rem);  /* スマートフォンでは少し小さくする */
-      line-height: 1.4;
-      color: var(--main-color);
-    }
+        .small-title {
+            color: #e6bd63;
+            letter-spacing: 3px;
+            font-size: 14px;
+        }
 
-    h2 {
-      margin: 28px 0 8px;
-      padding-bottom: 4px;
-      font-size: 1.05rem;
-      border-bottom: 1px solid var(--line-color);
-    }
+        header h1 {
+            color: #fff0bb;
+            font-size: 48px;
+            margin: 12px 0;
+            text-shadow: 3px 3px #70532b;
+        }
 
-    /* 「設定は成功」のバッジ */
-    .badge {
-      display: inline-block;
-      margin: 8px 0 0;
-      padding: 2px 12px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: var(--card-color);
-      background: var(--main-color);
-      border-radius: 999px;
-    }
+        .subtitle {
+            color: #b8bad8;
+            font-size: 15px;
+        }
 
-    /* 「次にやること」の番号つきリスト */
-    ol {
-      margin: 0;
-      padding-left: 1.4em;
-    }
-    li {
-      margin-bottom: 6px;
-    }
-    li::marker {
-      font-weight: bold;
-      color: var(--main-color);
-    }
+        main {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
 
-    /* コマンドの見た目 */
-    code {
-      padding: 1px 6px;
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: 0.88em;
-      background: var(--bg-color);
-      border-radius: 4px;
-      white-space: nowrap;  /* コマンドの途中で折り返さない */
-    }
+        .window {
+            background: #1c1d34;
+            border: 3px solid #e6bd63;
+            outline: 2px solid #484263;
+            outline-offset: 4px;
+            padding: 25px;
+            margin-bottom: 35px;
+            box-shadow: 7px 7px 0 #080811;
+        }
 
-    /* 補足の小さな文字 */
-    .sub {
-      font-size: 0.9rem;
-      color: var(--sub-color);
-    }
+        h2 {
+            margin: 0 0 20px;
+            color: #f2d48a;
+            font-size: 21px;
+            border-bottom: 1px dashed #777a99;
+            padding-bottom: 10px;
+        }
 
-    /* いちばん下の小さな文字 */
-    footer {
-      margin-top: 28px;
-      padding-top: 12px;
-      font-size: 0.8rem;
-      color: var(--sub-color);
-      border-top: 1px solid var(--line-color);
-    }
-    a {
-      color: var(--main-color);
-    }
-  </style>
+        h2::before {
+            content: "▶ ";
+            color: #8cf0b5;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 1px dotted #555772;
+            padding: 10px 0;
+        }
+
+        .label {
+            color: #a6d8ff;
+            font-weight: bold;
+        }
+
+        .value {
+            text-align: right;
+        }
+
+        .level {
+            color: #8cf0b5;
+            font-weight: bold;
+        }
+
+        .message {
+            background: #101121;
+            border: 2px solid #777a99;
+            padding: 18px;
+            margin-top: 20px;
+            color: #ffffff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .item {
+            background: #101121;
+            border: 2px solid #555772;
+            padding: 14px;
+            color: #ffffff;
+        }
+
+        .item::before {
+            content: "◆ ";
+            color: #e6bd63;
+        }
+
+        .skill {
+            margin: 16px 0;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            color: #d8e7ff;
+        }
+
+        .bar {
+            height: 15px;
+            background: #101121;
+            border: 2px solid #777a99;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: repeating-linear-gradient(90deg,
+                    #69d7b0 0px,
+                    #69d7b0 12px,
+                    #28785f 12px,
+                    #28785f 15px);
+        }
+
+        .quest {
+            background: #101121;
+            border-left: 4px solid #8cf0b5;
+            padding: 18px;
+        }
+
+        .quest-title {
+            color: #f2d48a;
+            font-weight: bold;
+        }
+
+        .quest-status {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 3px 12px;
+            color: #8cf0b5;
+            border: 1px solid #8cf0b5;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #191a30;
+            border-top: 3px double #e6bd63;
+            color: #b8bad8;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 36px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .value {
+                text-align: left;
+            }
+
+            .window {
+                padding: 18px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <main>
-    <h1>このサイトは準備中です</h1>
-    <p class="badge">GitHub Pages の設定 OK</p>
-    <p>このページが表示されていれば，あなたのリポジトリは正しく公開されています．
-      あとは，このページを自分のサイトに置きかえるだけです．</p>
 
-    <h2>次にやること</h2>
-    <ol>
-      <li>このリポジトリを，SSHのURLで <code>git clone</code> する</li>
-      <li><code>index.html</code> を，第6回で作ったサイトに置きかえる</li>
-      <li><code>bash scripts/check.sh</code> で，公開前のチェックをする</li>
-      <li><code>git add</code> → <code>git commit</code> → <code>git push origin main</code> する</li>
-      <li>数分待ってから，このページを再読み込みする</li>
-    </ol>
-    <p class="sub">再読み込みしても変わらないときは，強制再読み込み（Windows：Ctrl + F5，Mac：Command + Shift + R）を試しましょう．</p>
+    <header>
+        <div class="small-title">
+            ★ ADVENTURER PROFILE ★
+        </div>
+        <h1>栄</h1>
+        <p class="subtitle">
+            LV.3 / INFORMATION ENGINEERING
+        </p>
+    </header>
 
-    <h2>公開する前に</h2>
-    <ul>
-      <li>本名のフルネーム・学籍番号・住所・電話番号・メールアドレスが入っていないか</li>
-      <li>自己紹介に書いていないことを，AIが付け足していないか</li>
-    </ul>
-    <p class="sub">このリポジトリは Public です．サイトだけでなく，ファイルの中身やコミットの履歴も，誰でも見ることができます．</p>
+    <main>
+
+        <section class="window">
+            <h2>STATUS / 基本情報</h2>
+
+            <div class="status-row">
+                <span class="label">NAME</span>
+                <span class="value">栄</span>
+            </div>
+
+            <div class="status-row">
+                <span class="label">LEVEL</span>
+                <span class="value level">3年生</span>
+            </div>
+
+            <div class="status-row">
+                <span class="label">GUILD</span>
+                <span class="value">拓殖大学工学部</span>
+            </div>
+
+            <div class="status-row">
+                <span class="label">CLASS</span>
+                <span class="value">情報工学科</span>
+            </div>
+
+            <div class="message">
+                「アカペラ研究会に所属しています」
+            </div>
+        </section>
+
+        <section class="window">
+            <h2>INVENTORY / 趣味・好きなこと</h2>
+
+            <div class="grid">
+                <div class="item">ぬい活</div>
+                <div class="item">RPGゲーム</div>
+                <div class="item">羊毛フェルト</div>
+                <div class="item">アイロンビーズ</div>
+                <div class="item">音楽を聴くこと</div>
+                <div class="item">アカペラ用楽譜を作ること</div>
+            </div>
+        </section>
+
+        <section class="window">
+            <h2>SKILLS / プログラミング経験</h2>
+
+            <p>これまでに使ったことのある言語・ツール</p>
+
+            <div class="skill">
+                <div class="skill-name">
+                    <span>p5.js</span>
+                    <span>習得経験あり</span>
+                </div>
+                <div class="bar">
+                    <div class="bar-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <div class="skill-name">
+                    <span>Java</span>
+                    <span>習得経験あり</span>
+                </div>
+                <div class="bar">
+                    <div class="bar-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <div class="skill-name">
+                    <span>HTML / CSS / JavaScript</span>
+                    <span>習得経験あり</span>
+                </div>
+                <div class="bar">
+                    <div class="bar-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="window">
+            <h2>QUEST / この授業で学びたいこと</h2>
+
+            <div class="quest">
+                <div class="quest-title">
+                    QUEST 01：GitHubをもっと知る
+                </div>
+                <p>
+                    GitHubの使い方をもっと知りたいです。
+                </p>
+                <p>
+                    Gitを使って複数人で開発する方法を学びたいです。
+                </p>
+                <span class="quest-status">挑戦中</span>
+            </div>
+        </section>
+
+        <section class="window">
+            <h2>MESSAGE / ひとこと</h2>
+
+            <div class="message">
+                ▶ 地元亀有が大好きです
+            </div>
+        </section>
+
+    </main>
 
     <footer>
-      拓殖大学工学部『オープンソースソフトウェア』2026年度<br>
-      <a href="https://github.com/tomohitoy/oss-practice-2026/blob/main-07/chap07/README.md">第7回の資料</a>
-      ・
-      <a href="https://github.com/tomohitoy/oss-template-2026">テンプレート（tomohitoy/oss-template-2026）</a>
+        ★ SAKAEのステータス ★
     </footer>
-  </main>
+
 </body>
+
 </html>
